@@ -1,0 +1,60 @@
+services:
+  cars:
+    build:
+      context: ./Microservice_Cars
+    image: microservice_cars_image:latest
+    container_name: microservice_cars_container
+    ports:
+      - "5001:5000"
+    networks:
+      - cardealer_network
+    depends_on:
+      - cars_db
+    restart: unless-stopped
+
+  cars_db:
+    image: mongo:latest
+    container_name: cars_db_container
+    networks:
+      - cardealer_network
+    volumes:
+      - cars_db_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  employees:
+    build:
+      context: ./Microservice_Employees
+    image: microservice_employees_image:latest
+    container_name: microservice_employees_container
+    ports:
+      - "5002:5000"
+    networks:
+      - cardealer_network
+    depends_on:
+      - employees_db
+    restart: unless-stopped
+
+  employees_db:
+    image: mongo:latest
+    container_name: employees_db_container
+    networks:
+      - cardealer_network
+    volumes:
+      - employees_db_data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+networks:
+  cardealer_network:
+    driver: bridge
+
+volumes:
+  cars_db_data:
+  employees_db_data:
