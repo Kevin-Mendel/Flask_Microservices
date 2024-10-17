@@ -4,6 +4,8 @@ Das Projekt dokumentiert die beiden Flask Microservices "cars" und "employees", 
 Zudem wird die Konfiguration der Docker Service Komposition durch eine docker-compose.yml Datei verwaltet.
 
 
-Zum Ausführen der Microservices wird eine Docker Installation auf dem Host benötigt.
-Zum Starten der Microservices muss das Repository lokal geklont werden. Anschließend muss in das Root-Verzeichnis des Projektes navigiert werden.
-Dort kann dan mit dem Befehl "docker compose up" die Microservice Umgebung gestartet werden.
+Microservice Deployment:
+- Vorraussetzung ist eine Docker Installation auf dem Host
+- Repository lokal klonen
+- Navigieren in das Projekt Root-Verzeichnis
+- Mit dem Befehl "docker compose up" kann die Microservice Umgebung gestartet werden
